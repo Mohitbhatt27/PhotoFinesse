@@ -38,9 +38,14 @@ function ImageCropper({ image, setImage, setShowHomeButton }) {
     setCrop(crop);
   };
 
+  const handleClickOnSaveChanges = () => {
+    setImage(previewCanvasRef.current.toDataURL());
+  };
+
   return (
     <div>
       {error && <p className="text-red-500">{error}</p>}
+
       <ReactCrop
         src={image}
         crop={crop}
@@ -57,6 +62,7 @@ function ImageCropper({ image, setImage, setShowHomeButton }) {
           onLoad={onImageLoad}
         />
       </ReactCrop>
+
       <button
         onClick={() => {
           setShowDownload(true);
@@ -81,24 +87,32 @@ function ImageCropper({ image, setImage, setShowHomeButton }) {
           style={{
             border: "",
             width: "auto",
-            height: "200px",
+            height: "175px",
             objectFit: "contain",
           }}
         />
       )}
 
       {showDownload && (
-        <button
-          onClick={() => {
-            const link = document.createElement("a");
-            link.download = "image.png";
-            link.href = previewCanvasRef.current.toDataURL("image/png");
-            link.click();
-          }}
-          className="mt-4 bg-red-500 text-white py-2 px-4 rounded mx-auto block"
-        >
-          Download Image
-        </button>
+        <div className="mt-4 flex justify-around  items-center">
+          <button
+            onClick={handleClickOnSaveChanges}
+            className=" bg-green-500 text-white py-2 px-4 rounded"
+          >
+            Save Changes
+          </button>
+          <button
+            onClick={() => {
+              const link = document.createElement("a");
+              link.download = "image.png";
+              link.href = previewCanvasRef.current.toDataURL("image/png");
+              link.click();
+            }}
+            className=" bg-red-500 text-white py-2 px-4 rounded"
+          >
+            Download Image
+          </button>
+        </div>
       )}
     </div>
   );
