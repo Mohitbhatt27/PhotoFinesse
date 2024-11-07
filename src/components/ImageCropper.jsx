@@ -1,61 +1,66 @@
 import { useRef, useState } from "react";
 import ReactCrop, {
-  convertToPixelCrop,
   makeAspectCrop,
+  convertToPixelCrop,
 } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import { setCanvasPreview } from "../utils/setCanvasPreview";
+import { useImage } from "../ImageContext";
 
 const MIN_DIMENSION = 150;
 const ASPECT_RATIO = 1;
-function ImageCropper({ image, setImage, setShowHomeButton }) {
+
+function ImageCropper({ imgRef, handleOnFilterClick }) {
+  const { image, setImage } = useImage();
   const [crop, setCrop] = useState();
   const [error, setError] = useState("");
   const [showDownload, setShowDownload] = useState(false);
-  const imgRef = useRef(null);
   const previewCanvasRef = useRef(null);
-
-  setShowHomeButton(true);
 
   const onImageLoad = (e) => {
     const { width, height, naturalWidth, naturalHeight } = e.target;
     if (naturalWidth < MIN_DIMENSION || naturalHeight < MIN_DIMENSION) {
       setError("Image is too small");
-      setImage("");
+      setImage(""); // clear image in context if too small
       return;
     }
-    if (error) setError("");
+    if (error) setError(""); // clear error if valid image
+
+    // Initialize the crop area with an aspect ratio
     const crop = makeAspectCrop(
       {
-        unit: "%",
-        width: 25,
+        unit: "%", // crop area in percentage
+        width: 25, // initial width in percentage
       },
-      ASPECT_RATIO,
+      ASPECT_RATIO, // maintain aspect ratio
       width,
       height
     );
 
-    setCrop(crop);
+    setCrop(crop); // Set initial crop values
   };
 
   const handleClickOnSaveChanges = () => {
-    setImage(previewCanvasRef.current.toDataURL());
+    // Use canvas to preview the cropped image
+    setImage(previewCanvasRef.current.toDataURL()); // Save the cropped image back to the context
+    handleOnFilterClick();
   };
 
   return (
     <div>
       {error && <p className="text-red-500">{error}</p>}
 
+      {/* ReactCrop component for cropping */}
       <ReactCrop
-        src={image}
+        src={image} // Use image from context
         crop={crop}
-        onChange={(pixelCrop, percentCrop) => setCrop(percentCrop)}
+        onChange={(pixelCrop, percentCrop) => setCrop(percentCrop)} // Update crop state
         keepSelection
         aspect={undefined}
         minWidth={MIN_DIMENSION}
       >
         <img
-          src={image}
+          src={image} // Use the image from context as the source
           ref={imgRef}
           alt="Upload"
           style={{ maxHeight: "70vh" }}
@@ -66,6 +71,7 @@ function ImageCropper({ image, setImage, setShowHomeButton }) {
       <button
         onClick={() => {
           setShowDownload(true);
+          // Generate preview of the cropped image
           setCanvasPreview(
             imgRef.current,
             previewCanvasRef.current,
@@ -80,6 +86,8 @@ function ImageCropper({ image, setImage, setShowHomeButton }) {
       >
         Apply Crop
       </button>
+
+      {/* Canvas for showing preview of cropped image */}
       {crop && (
         <canvas
           ref={previewCanvasRef}
@@ -93,6 +101,7 @@ function ImageCropper({ image, setImage, setShowHomeButton }) {
         />
       )}
 
+      {/* Buttons to save or download cropped image */}
       {showDownload && (
         <div className="mt-4 flex justify-around  items-center">
           <button

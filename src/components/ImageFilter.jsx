@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { applyFilter } from "../utils/applyFilters";
+import { useImage } from "../ImageContext";
 
-const ImageFilter = ({ image, setImage, setShowHomeButton }) => {
+const ImageFilter = ({ handleOnResizeClick }) => {
+  const { image, setImage } = useImage();
   const [filteredImageUrl, setFilteredImageUrl] = useState("");
   const [filters, setFilters] = useState({
     brightness: 100,
@@ -23,7 +25,7 @@ const ImageFilter = ({ image, setImage, setShowHomeButton }) => {
 
   const handleSaveChanges = () => {
     setImage(filteredImageUrl);
-    setShowHomeButton(true);
+    handleOnResizeClick();
   };
 
   const handleFilterChange = (e) => {

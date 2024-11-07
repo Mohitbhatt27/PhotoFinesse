@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { compressImage } from "../utils/compressImage";
+import { useImage } from "../ImageContext";
 
-const ImageCompressor = ({ image, setImage, setShowHomeButton }) => {
+const ImageCompressor = () => {
+  const { image, setImage } = useImage();
   const [compressedImageUrl, setCompressedImageUrl] = useState("");
   const [compressionLevel, setCompressionLevel] = useState(0.7);
   const [approxSize, setApproxSize] = useState("");
@@ -13,11 +15,10 @@ const ImageCompressor = ({ image, setImage, setShowHomeButton }) => {
         setCompressedImageUrl(compressedUrl); // Calculate approximate size of the compressed image
         const blobSizeKB = compressedBlob.size / 1024;
         setApproxSize(blobSizeKB.toFixed(2) + " KB");
-        setShowHomeButton(true); // Show the home button after compression
       }
     };
     handleCompress();
-  }, [image, compressionLevel, setShowHomeButton]);
+  }, [image, compressionLevel]);
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = compressedImageUrl;
