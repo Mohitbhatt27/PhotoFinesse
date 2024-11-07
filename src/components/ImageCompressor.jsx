@@ -61,13 +61,13 @@ const ImageCompressor = ({ image, setImage, setShowHomeButton }) => {
           <div className="flex justify-between">
             <button
               onClick={handleSaveChanges}
-              className=" mt-4 bg-blue-500 text-white py-2 px-4 rounded"
+              className=" mt-4 bg-green-500 text-white py-2 px-4 rounded"
             >
               Save Changes
             </button>
             <button
               onClick={handleDownload}
-              className="mt-4 bg-green-500 text-white py-2 px-4 rounded"
+              className="mt-4  bg-blue-500 text-white py-2 px-4 rounded"
             >
               Download Compressed Image
             </button>

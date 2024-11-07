@@ -76,7 +76,7 @@ function ImageCropper({ image, setImage, setShowHomeButton }) {
             )
           );
         }}
-        className="mt-4 bg-blue-500 text-white py-2 px-4 rounded mx-auto block"
+        className="mt-4 bg-red-500 text-white py-2 px-4 rounded mx-auto block"
       >
         Apply Crop
       </button>
@@ -108,7 +108,7 @@ function ImageCropper({ image, setImage, setShowHomeButton }) {
               link.href = previewCanvasRef.current.toDataURL("image/png");
               link.click();
             }}
-            className=" bg-red-500 text-white py-2 px-4 rounded"
+            className=" bg-blue-500 text-white py-2 px-4 rounded"
           >
             Download Image
           </button>
