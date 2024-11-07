@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "react-image-crop/dist/ReactCrop.css";
+import "./App.css";
 import ImageCropper from "./components/ImageCropper";
 import { UploadNewFile } from "./components/UploadNewFile";
 import ImageCompressor from "./components/ImageCompressor";
@@ -10,6 +11,7 @@ function App() {
   const [showHomeButton, setShowHomeButton] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
   const [action, setAction] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
 
   const handleClickOnCropImage = () => {
     setAction("crop");
@@ -26,24 +28,55 @@ function App() {
     setShowFileUpload(true);
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 flex items-center justify-center px-4 lg:px-20 xl:px-40">
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-3xl text-center">
+    <div
+      className={`min-h-screen ${
+        darkMode
+          ? "bg-gray-900"
+          : "bg-gradient-to-r from-green-400 via-blue-400 to-purple-400"
+      } flex items-center justify-center px-4 lg:px-20 xl:px-40`}
+    >
+      <div
+        className={`bg-${
+          darkMode ? "gray-800" : "white"
+        } shadow-lg rounded-lg p-6 w-full max-w-3xl text-center`}
+      >
         {showHomeButton && (
           <button
             onClick={() => (window.location.href = "/")}
-            className="bg-blue-500 hover:bg-blue-300 text-white p-1 px-3 mx-auto rounded mb-4"
+            className={`bg-${darkMode ? "blue-700" : "blue-500"} hover:bg-${
+              darkMode ? "blue-500" : "blue-300"
+            } text-${
+              darkMode ? "white" : "white"
+            } p-1 px-3 mx-auto rounded mb-4`}
           >
             🏠 Home
           </button>
         )}
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800 font-mono">
-          Image Editor
+        <h1
+          className={`text-3xl font-bold mb-6 text-center text-${
+            darkMode ? "white" : "gray-800"
+          } font-mono`}
+        >
+          Photo-Finesse Editor
         </h1>
-        <div className="text-lg mb-6 text-center text-gray-800 font-mono">
-          Welcome to our Image Editor! Here's why you should use our app:
+        <div
+          className={`text-lg mb-6 text-center text-${
+            darkMode ? "gray-400" : "gray-800"
+          } font-mono`}
+        >
+          Welcome to our Image Editor! I am giving you 3 reason why you should
+          consider using our app:
         </div>
-        <div className="text-lg mb-4 text-left text-gray-800 font-mono">
+        <div
+          className={`text-lg mb-4 text-left text-${
+            darkMode ? "gray-400" : "gray-800"
+          } font-mono`}
+        >
           <ul className="list-disc list-inside space-y-2">
             <li>
               <strong>No sign up needed:</strong> Just upload the image and
@@ -60,10 +93,18 @@ function App() {
           </ul>
         </div>
 
-        <div className="text-lg mb-2 text-center text-gray-800 font-mono">
+        <div
+          className={`text-lg mb-2 text-center text-${
+            darkMode ? "gray-400" : "gray-800"
+          } font-mono`}
+        >
           Select one of the following actions:
         </div>
-        <div className="text-lg mb-4 text-gray-800 font-mono">
+        <div
+          className={`text-lg mb-4 text-${
+            darkMode ? "gray-400" : "gray-800"
+          } font-mono`}
+        >
           <ul className="list-disc list-inside space-y-2">
             <li
               onClick={handleClickOnCropImage}
@@ -108,9 +149,21 @@ function App() {
             setShowHomeButton={setShowHomeButton}
           />
         )}
-        <footer className="mt-6 text-gray-600 font-mono">
+        <footer
+          className={`mt-6 text-${
+            darkMode ? "gray-400" : "gray-600"
+          } font-mono`}
+        >
           This app was created by Mohit Bhatt
         </footer>
+        <button
+          onClick={toggleDarkMode}
+          className={`mt-4 p-2 rounded bg-${
+            darkMode ? "gray-700" : "gray-200"
+          }`}
+        >
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
       </div>
     </div>
   );
