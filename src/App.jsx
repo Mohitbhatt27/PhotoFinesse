@@ -8,31 +8,29 @@ function App() {
   return (
     <>
       <ImageProvider>
-        <div className="flex flex-col items-center justify-around px-4 lg:px-20 xl:px-40 h-[99vh]">
-          <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-3xl text-center">
-            <button
-              onClick={() => navigate("/")}
-              className="bg-blue-500 hover:bg-
-  blue-300
-     text-white
-    p-1 px-3 mx-auto rounded mb-4"
-            >
-              🏠 Home
-            </button>
-            <h1
-              className="text-3xl font-bold mb-6 text-center text-gray-800
-  font-mono"
-            >
-              Photo-Finesse Editor
-            </h1>
-
-            <Outlet />
-            <footer
-              className="mt-6 text-
-            gray-600 font-mono"
-            >
-              This app was created by Mohit Bhatt
-            </footer>
+        <div className="flex items-center justify-center w-full h-full min-h-screen">
+          <div className="bg-white border border-gray-800 shadow-lg rounded-lg p-4 w-[90vw] max-w-5xl grid grid-cols-12 gap-4 lg:gap-8 mx-auto">
+            <div className="col-span-12 lg:col-span-2">
+              <button
+                onClick={() => navigate("/")}
+                className="btn-action mb-4 w-full lg:w-auto "
+              >
+                🏠 Home
+              </button>
+            </div>
+            <div className="col-span-12 lg:col-span-8">
+              <h1 className="text-3xl font-bold mb-6 text-center text-gray-800 font-mono lg:mt-10">
+                Photo-Finesse Editor
+              </h1>
+            </div>
+            <div className="col-span-12">
+              <Outlet />
+            </div>
+            <div className="col-span-12">
+              <footer className="mt-6 text-gray-600 font-mono text-center">
+                This app was created by Mohit Bhatt
+              </footer>
+            </div>
           </div>
         </div>
       </ImageProvider>

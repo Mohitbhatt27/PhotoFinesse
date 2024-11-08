@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { applyFilter } from "../utils/applyFilters";
 import { useImage } from "../ImageContext";
 
-const ImageFilter = ({ handleOnResizeClick }) => {
+const ImageFilter = ({ handleShowJustMainImage }) => {
   const { image, setImage } = useImage();
   const [filteredImageUrl, setFilteredImageUrl] = useState("");
   const [filters, setFilters] = useState({
@@ -25,7 +25,7 @@ const ImageFilter = ({ handleOnResizeClick }) => {
 
   const handleSaveChanges = () => {
     setImage(filteredImageUrl);
-    handleOnResizeClick();
+    handleShowJustMainImage();
   };
 
   const handleFilterChange = (e) => {
@@ -182,44 +182,42 @@ const ImageFilter = ({ handleOnResizeClick }) => {
           Pre-applied Themes
         </h2>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center my-4">
           <select
             onChange={(e) =>
               setFilters(preappliedThemes[e.target.value].filters)
             }
-            className="bg-blue-700 text-yellow-300 rounded p-2"
+            className="bg-white text-gray-800 border border-gray-300 rounded-lg p-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
           >
             <option value="" disabled selected>
               Select one of our prebuilt themes
             </option>
             {preappliedThemes.map((theme, index) => (
-              <option key={index} value={index}>
+              <option
+                key={index}
+                value={index}
+                className="hover:bg-blue-700 hover:text-white cursor-pointer"
+              >
                 {theme.name}
               </option>
             ))}
           </select>
         </div>
-      </div>
 
-      {filteredImageUrl && (
-        <div>
-          <img src={filteredImageUrl} alt="Filtered" className="mx-auto" />
-          <div className="flex justify-center space-x-4 mt-4">
-            <button
-              onClick={handleSaveChanges}
-              className="bg-green-500 text-white py-2 px-4 rounded"
-            >
-              Save Changes
-            </button>
-            <button
-              onClick={handleDownload}
-              className="bg-blue-500 text-white py-2 px-4 rounded"
-            >
-              Download Image
-            </button>
+        {filteredImageUrl && (
+          <div>
+            <img src={filteredImageUrl} alt="Filtered" className="mx-auto" />
+            <div className="flex justify-center space-x-4 mt-4">
+              <button onClick={handleSaveChanges} className="btn-action">
+                Save Changes
+              </button>
+              <button onClick={handleDownload} className="btn-action">
+                Download Image
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

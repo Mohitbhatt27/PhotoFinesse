@@ -10,7 +10,7 @@ import { useImage } from "../ImageContext";
 const MIN_DIMENSION = 150;
 const ASPECT_RATIO = 1;
 
-function ImageCropper({ imgRef, handleOnFilterClick }) {
+function ImageCropper({ imgRef, handleShowJustMainImage }) {
   const { image, setImage } = useImage();
   const [crop, setCrop] = useState();
   const [error, setError] = useState("");
@@ -43,7 +43,7 @@ function ImageCropper({ imgRef, handleOnFilterClick }) {
   const handleClickOnSaveChanges = () => {
     // Use canvas to preview the cropped image
     setImage(previewCanvasRef.current.toDataURL()); // Save the cropped image back to the context
-    handleOnFilterClick();
+    handleShowJustMainImage();
   };
 
   return (
@@ -104,10 +104,7 @@ function ImageCropper({ imgRef, handleOnFilterClick }) {
       {/* Buttons to save or download cropped image */}
       {showDownload && (
         <div className="mt-4 flex justify-around  items-center">
-          <button
-            onClick={handleClickOnSaveChanges}
-            className=" bg-green-500 text-white py-2 px-4 rounded"
-          >
+          <button onClick={handleClickOnSaveChanges} className="btn-action">
             Save Changes
           </button>
           <button
@@ -117,7 +114,7 @@ function ImageCropper({ imgRef, handleOnFilterClick }) {
               link.href = previewCanvasRef.current.toDataURL("image/png");
               link.click();
             }}
-            className=" bg-blue-500 text-white py-2 px-4 rounded"
+            className=" btn-action"
           >
             Download Image
           </button>

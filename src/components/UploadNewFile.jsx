@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useImage } from "../ImageContext";
 
 export const UploadNewFile = () => {
-  const { image, setImage } = useImage();
+  const { setImage } = useImage();
   const navigate = useNavigate();
 
   const handleImageUpload = (e) => {
@@ -19,11 +19,13 @@ export const UploadNewFile = () => {
   };
 
   return (
-    <input
-      type="file"
-      accept="image/*"
-      onChange={handleImageUpload}
-      className="mb-4"
-    />
+    <div>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageUpload}
+        className="mb-4"
+      />
+    </div>
   );
 };

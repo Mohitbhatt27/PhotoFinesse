@@ -3,7 +3,7 @@ import { UploadNewFile } from "../components/UploadNewFile";
 const Home = () => {
   return (
     <>
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-3xl text-center">
+      <div className="bg-slate-100 shadow-lg rounded-lg p-6 text-center w-full lg:w-3/4 xl:w-1/2 mx-auto">
         <div className="text-lg mb-6 text-center text-gray-800 font-mono">
           Welcome to our Image Editor! I am giving you 3 reasons why you should
           consider using our app:

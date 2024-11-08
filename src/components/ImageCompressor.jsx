@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { compressImage } from "../utils/compressImage";
 import { useImage } from "../ImageContext";
 
-const ImageCompressor = () => {
+const ImageCompressor = ({ handleShowJustMainImage }) => {
   const { image, setImage } = useImage();
   const [compressedImageUrl, setCompressedImageUrl] = useState("");
   const [compressionLevel, setCompressionLevel] = useState(0.7);
@@ -33,6 +33,7 @@ const ImageCompressor = () => {
     if (compressedImageUrl) {
       setImage(compressedImageUrl);
     }
+    handleShowJustMainImage();
   };
   return (
     <div>
@@ -59,18 +60,12 @@ const ImageCompressor = () => {
           </h2>
           <img src={compressedImageUrl} alt="Compressed" className="mx-auto" />
 
-          <div className="flex justify-between">
-            <button
-              onClick={handleSaveChanges}
-              className=" mt-4 bg-green-500 text-white py-2 px-4 rounded"
-            >
+          <div className="flex justify-between border">
+            <button onClick={handleSaveChanges} className="btn-action">
               Save Changes
             </button>
-            <button
-              onClick={handleDownload}
-              className="mt-4  bg-blue-500 text-white py-2 px-4 rounded"
-            >
-              Download Compressed Image
+            <button onClick={handleDownload} className="btn-action">
+              Download Image
             </button>
           </div>
         </div>
